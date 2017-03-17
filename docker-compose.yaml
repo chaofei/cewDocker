@@ -1,7 +1,7 @@
 web:
-    image: cew-storage:1.0
+    image: cew:1.0
     ports: 
         - "8100:80"
     volumes:
-        - /Users/chenchaofei/Documents/docker/cew/conf:/conf
-        - /Users/chenchaofei/Documents/docker/cew/srv:/srv
+        - /usr/local/cew/conf:/conf
+        - /usr/local/cew/srv:/srv
