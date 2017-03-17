@@ -20,6 +20,19 @@ RUN sh setuptools-0.6c11-py2.6.egg
 WORKDIR /usr/local/src/supervisor-3.0b1
 RUN python setup.py install
 RUN echo_supervisord_conf  >/etc/supervisord.conf
+##############################################################
+WORKDIR /usr/local/src/
+RUN mkdir -p /usr/local/webserver/java
+RUN mv jre1.7.0_80 /usr/local/webserver/java/
+
+WORKDIR /usr/local/webserver/java/
+RUN chown root.root -R jre1.7.0_80
+
+RUN echo 'export JAVA_HOME=/usr/local/webserver/java' >> /etc/profile
+RUN echo 'export JRE_HOME=/usr/local/webserver/java/jre1.7.0_80' >> /etc/profile
+RUN echo 'export CLASSPATH=$JRE_HOME/lib/rt.jar:$JRE_HOME/lib/ext' >> /etc/profile
+RUN echo 'export PATH=$PATH:$JRE_HOME/bin' >> /etc/profile' >> /etc/profile
+RUN source /etc/profile
 
 ##############################################################
 ADD ./src/nginx-1.8.0.tar.gz /usr/local/src
