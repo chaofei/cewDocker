@@ -3,5 +3,5 @@ web:
     ports: 
         - "8100:80"
     volumes:
-        - /usr/local/cew/conf:/conf
-        - /usr/local/cew/srv:/srv
+        - /data/cew/conf:/conf
+        - /data/cew/srv:/srv

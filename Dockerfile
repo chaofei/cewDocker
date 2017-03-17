@@ -8,7 +8,8 @@ RUN yum install -y gcc gcc-c++
 RUN yum -y install vim wget curl sudo tar
 
 
-RUN mkdir /usr/local/webserver
+RUN mkdir -p /usr/local/webserver/coffee/logs
+RUN mkdir -p /usr/local/webserver/coffee/web
 
 ##############################################################
 WORKDIR /usr/local/src/
