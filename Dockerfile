@@ -11,17 +11,8 @@ RUN yum -y install vim wget curl sudo tar
 RUN mkdir /usr/local/webserver
 
 ##############################################################
-ADD ./src/setuptools-0.6c11-py2.6.egg /usr/local/src/
-ADD ./src/supervisor-3.0b1.tar.gz /usr/local/src/
-
 WORKDIR /usr/local/src/
-RUN sh setuptools-0.6c11-py2.6.egg
-
-WORKDIR /usr/local/src/supervisor-3.0b1
-RUN python setup.py install
-RUN echo_supervisord_conf  >/etc/supervisord.conf
-##############################################################
-WORKDIR /usr/local/src/
+ADD ./src/jre-7u80-linux-x64.tar.gz /usr/local/src/
 RUN mkdir -p /usr/local/webserver/java
 RUN mv jre1.7.0_80 /usr/local/webserver/java/
 
@@ -31,8 +22,19 @@ RUN chown root.root -R jre1.7.0_80
 RUN echo 'export JAVA_HOME=/usr/local/webserver/java' >> /etc/profile
 RUN echo 'export JRE_HOME=/usr/local/webserver/java/jre1.7.0_80' >> /etc/profile
 RUN echo 'export CLASSPATH=$JRE_HOME/lib/rt.jar:$JRE_HOME/lib/ext' >> /etc/profile
-RUN echo 'export PATH=$PATH:$JRE_HOME/bin' >> /etc/profile' >> /etc/profile
+RUN echo 'export PATH=$PATH:$JRE_HOME/bin' >> /etc/profile
 RUN source /etc/profile
+
+##############################################################
+ADD ./src/setuptools-0.6c11-py2.6.egg /usr/local/src/
+ADD ./src/supervisor-3.0b1.tar.gz /usr/local/src/
+
+WORKDIR /usr/local/src/
+RUN sh setuptools-0.6c11-py2.6.egg
+
+WORKDIR /usr/local/src/supervisor-3.0b1
+RUN python setup.py install
+RUN echo_supervisord_conf  >/etc/supervisord.conf
 
 ##############################################################
 ADD ./src/nginx-1.8.0.tar.gz /usr/local/src
@@ -92,7 +94,7 @@ RUN chmod a+x /etc/init.d/mysqld
 RUN cp /usr/local/webserver/mysql/support-files/my-default.cnf /etc/my.cnf
 RUN chown mysql:mysql /etc/my.cnf
 
-RUN echo "export PATH=$PATH:/usr/local/webserver/mysql/bin" >> /etc/profile
+RUN echo 'export PATH=$PATH:/usr/local/webserver/mysql/bin' >> /etc/profile
 RUN source /etc/profile
 
 #修改目录权限
@@ -104,7 +106,6 @@ WORKDIR /usr/local/webserver/mysql/scripts
 RUN ./mysql_install_db --user=mysql --basedir=/usr/local/webserver/mysql --datadir=/usr/local/webserver/mysql/data
 
 ###################################################################
-
 ADD ./src/bin/supervisord /etc/init.d/
 ADD ./src/bin/redis /etc/init.d/
 ADD ./src/bin/nginx /etc/init.d/
