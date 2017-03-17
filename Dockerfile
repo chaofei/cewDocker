@@ -9,6 +9,7 @@ RUN yum -y install vim wget curl sudo tar
 
 
 RUN mkdir -p /usr/local/webserver/coffee/logs
+RUN chmod 777 /usr/local/webserver/coffee/logs
 RUN mkdir -p /usr/local/webserver/coffee/web
 
 ##############################################################
