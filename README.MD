@@ -31,3 +31,5 @@ GRANT ALL ON *.* TO 'ceweb'@'localhost';
 #刷权限
 flush privileges;
 
+#重启docker
+docker restart cew_web_1
