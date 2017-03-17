@@ -16,6 +16,9 @@ docker exec -it cew_web_1 bash
 #进入mysql 命令交互模式
 /usr/local/webserver/mysql/bin/mysql
 
+#创建数据库
+create database cew;
+
 #添加mysql用户
 CREATE USER 'ceweb'@'localhost' IDENTIFIED BY '123456';
 #授权mysql用户
