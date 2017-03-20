@@ -11,6 +11,7 @@ cp -r srv /data/cew/
 
 #创建容器
 docker-compose up -d 
+#docker run -p 81:80 -v /server/www/cew/data/conf:/conf -v /server/www/cew/data/srv:/srv --name="cew_web_1" -d cew:1.0
 
 #进入容器
 docker exec -it cew_web_1 bash
